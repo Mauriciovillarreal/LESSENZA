@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import "./Chat.css";
 
-const socket = io('http://localhost:8080', {
+const socket = io('https://lessenza-api.onrender.com', {
   withCredentials: true,
 });
 

@@ -32,7 +32,7 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/sessions/reset-password', { token, newPassword: password });
+      const response = await axios.post('https://lessenza-api.onrender.com/api/sessions/reset-password', { token, newPassword: password });
       toast.success(response.data.message, {
         position: "bottom-left",
         style: {

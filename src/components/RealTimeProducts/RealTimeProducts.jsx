@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import './RealTimeProducts.css'; // Importa los estilos
 import { AuthContext } from '../../AuthContext/AuthContext';
 
-const socket = io('http://localhost:8080');
+const socket = io('https://lessenza-api.onrender.com');
 
 const RealTimeProducts = () => {
     const [products, setProducts] = useState([]);

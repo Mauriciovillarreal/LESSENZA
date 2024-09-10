@@ -13,7 +13,7 @@ const GenerateNewResetLink = () => {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:8080/api/sessions/generate-new-reset-link', {
+      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/generate-new-reset-link', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

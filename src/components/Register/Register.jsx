@@ -26,7 +26,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/sessions/register', form);
+            const response = await axios.post('https://lessenza-api.onrender.com/api/sessions/register', form);
             if (response.status === 200) {
                 // Mostrar la notificación de éxito
                 toast.success('Registro exitoso, redirigiendo a página login...', {

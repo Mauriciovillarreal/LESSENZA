@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'https://lessenza-api.onrender.com',
+  // baseURL: 'https://lessenza-api.onrender.com',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'

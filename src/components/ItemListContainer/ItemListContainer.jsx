@@ -9,7 +9,7 @@ import "./ItemListContainer.css";
 
 const getProducts = async () => {
     try {
-        const response = await fetch('http://localhost:8080/api/products').then(res => res.json());
+        const response = await fetch('https://lessenza-api.onrender.com/api/products').then(res => res.json());
         return response;
     } catch (error) {
         console.log(error);

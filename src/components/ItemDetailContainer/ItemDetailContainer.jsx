@@ -5,7 +5,7 @@ import { ItemDetail } from '../ItemDetail/ItemDetail';
 
 const getProductById = async (pid) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/products/${pid}`).then(res => res.json());
+        const response = await fetch(`https://lessenza-api.onrender.com/api/products/${pid}`).then(res => res.json());
         return response.data;
     } catch (error) {
         console.log(error);

@@ -15,7 +15,7 @@ const LoginForm = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8080/api/sessions/login', {
+      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ const LoginForm = () => {
         {error && <p className="error">{error}</p>}
       </form>
       <div className="containerBtnGH">
-        <a href="http://localhost:8080/api/sessions/github" className="btnGitHub" onClick={handleGitHubLogin}>
+        <a href="https://lessenza-api.onrender.com/api/sessions/github" className="btnGitHub" onClick={handleGitHubLogin}>
           <img src="/img/github.png" width="50px" alt="" /> Sign up with GitHub
         </a>
       </div>

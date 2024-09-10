@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/sessions/current', {
+        const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleGitHubLogin = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/sessions/current', { 
+      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', { 
         credentials: 'include'
       });
       if (!response.ok) {
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (formData) => {
     try {
-      const response = await fetch('http://localhost:8080/api/sessions/register', {
+      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/sessions/logout', {
+      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/logout', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
