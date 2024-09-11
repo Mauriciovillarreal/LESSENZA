@@ -90,7 +90,7 @@ const RealTimeProducts = () => {
                         ))}
                     </ul>
                 </div>
-                {user && user.role === 'admin' ? (
+                {user && (user.role === 'admin' || user.role === 'premium') ? (
                     <div className="operateProducts">
                         <h3>Add Products</h3>
                         <form id="add-product-form" onSubmit={handleAddProduct}>
