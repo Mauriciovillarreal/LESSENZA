@@ -1,14 +1,15 @@
 // LoginForm.jsx
 import { AuthContext } from '../../AuthContext/AuthContext';
 import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Importar useNavigate
 import "./Login.css";
-import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const { login, handleGitHubLogin } = useContext(AuthContext);
+  const navigate = useNavigate(); // Inicializar useNavigate
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,7 +38,7 @@ const LoginForm = () => {
           login(data);
           console.log('Login successful, redirecting...');
           setTimeout(() => {
-            window.location.href = '/';
+            navigate('/'); // Redirigir usando useNavigate
           }, 2000);
         }
       } else {
