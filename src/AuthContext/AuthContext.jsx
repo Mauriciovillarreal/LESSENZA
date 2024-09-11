@@ -86,9 +86,9 @@ export const AuthProvider = ({ children }) => {
       });
 
       if (response.ok) {
-        console.log('User logged out');
+       console.log('User logged out');
         setUser(null);
-        window.location.href = '/login';
+        navigate('/login');  // Usa React Router para la redirección
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al cerrar sesión');
