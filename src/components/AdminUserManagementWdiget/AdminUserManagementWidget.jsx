@@ -7,11 +7,14 @@ export const AdminUserManagementWidget = () => {
 
     return (
         <div>
-            <Link to={`/admin/users`}>
-                <button className="realTime">
-                    Gestionar usuarios
-                </button>
-            </Link>
+        
+            {user && user.role === 'admin' && (
+                <Link to={`/admin/users/${user._id}`}>
+                    <button className="realTime">
+                        Gestionar usuarios
+                    </button>
+                </Link>
+            )}
         </div>
     );
 };

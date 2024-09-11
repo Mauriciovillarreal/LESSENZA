@@ -37,7 +37,7 @@ const App = () => {
               <Route path='/register' element={<Register />} />
               <Route path='/realtimeproducts' element={<RealTimeProducts />} />
               <Route path='/profil' element={<UploadDocuments />} />
-              <Route path="/admin/users" element={<AdminUserManagement />} />
+              <Route path="/admin/users/:uid" element={<AdminUserManagement />} />
             </Routes>
             <Footer />
             <ToastContainer />
