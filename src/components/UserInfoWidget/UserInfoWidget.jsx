@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { RealTimeProductsWidget } from '../RealTimeProductsWidget/RealTimeProductsWidget';
-import { Link, useNavigate } from 'react-router-dom';  // Añadir useNavigate
-import './UserInfoWidget.css'
+import { Link, useNavigate } from 'react-router-dom';
+import './UserInfoWidget.css';
 import { AdminUserManagementWidget } from '../AdminUserManagementWdiget/AdminUserManagementWidget';
+import { AuthContext } from '../../context/AuthContext';  // Importar el contexto
 
-const UserInfoWidget = ({ user, handleLogout }) => {
+const UserInfoWidget = () => {
+    const { user, logout } = useContext(AuthContext);  // Usar el contexto
     const navigate = useNavigate();  // Crear el hook de navegación
 
-    const handleLogoutClick = () => {
-        handleLogout();  // Llamar a la función de logout
-        navigate('/login');  // Redirigir a la página de login
+    const handleLogoutClick = async () => {
+        try {
+            await logout();  // Llamar a la función de logout desde el contexto
+            navigate('/login');  // Redirigir a la página de login
+        } catch (error) {
+            console.error("Error al cerrar sesión", error);
+        }
     };
 
     return (
@@ -26,7 +32,7 @@ const UserInfoWidget = ({ user, handleLogout }) => {
                 {user.role === 'admin' && <RealTimeProductsWidget />}
                 {user.role === 'admin' && <AdminUserManagementWidget />}
                 <hr />
-                <button className='btnUser' onClick={handleLogoutClick}>Salir</button> {/* Usar handleLogoutClick */}
+                <button className='btnUser' onClick={handleLogoutClick}>Salir</button>
             </div>
         </div>
     );
