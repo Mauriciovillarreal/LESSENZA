@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
             'Content-Type': 'application/json',
           },
         });
-    
+
         if (response.ok) {
           const data = await response.json();
           setUser(data.user);
@@ -24,10 +24,10 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (error) {
         console.error('Error fetching current user:', error);
+      } finally {
+        setLoading(false); // Aquí indicamos que la carga ha finalizado
       }
     };
-    
-
     fetchCurrentUser();
   }, []);
 
