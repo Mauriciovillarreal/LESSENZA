@@ -1,11 +1,17 @@
-// src/components/UserInfoWidget/UserInfoWidget.js
 import React from 'react';
 import { RealTimeProductsWidget } from '../RealTimeProductsWidget/RealTimeProductsWidget';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Añadir useNavigate
 import './UserInfoWidget.css'
 import { AdminUserManagementWidget } from '../AdminUserManagementWdiget/AdminUserManagementWidget';
 
 const UserInfoWidget = ({ user, handleLogout }) => {
+    const navigate = useNavigate();  // Crear el hook de navegación
+
+    const handleLogoutClick = () => {
+        handleLogout();  // Llamar a la función de logout
+        navigate('/login');  // Redirigir a la página de login
+    };
+
     return (
         <div className="containerUser">
             <div className='userInfo'>
@@ -13,7 +19,6 @@ const UserInfoWidget = ({ user, handleLogout }) => {
                 <Link to="/profil">Mi perfil ► </Link>
                 <div className="role">
                     <h3>{user.role}</h3>
-
                 </div>
             </div>
             <div className='containerBtn'>
@@ -21,7 +26,7 @@ const UserInfoWidget = ({ user, handleLogout }) => {
                 {user.role === 'admin' && <RealTimeProductsWidget />}
                 {user.role === 'admin' && <AdminUserManagementWidget />}
                 <hr />
-                <button className='btnUser' onClick={handleLogout}>Salir</button>
+                <button className='btnUser' onClick={handleLogoutClick}>Salir</button> {/* Usar handleLogoutClick */}
             </div>
         </div>
     );
