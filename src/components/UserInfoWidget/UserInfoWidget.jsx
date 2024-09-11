@@ -3,7 +3,7 @@ import { RealTimeProductsWidget } from '../RealTimeProductsWidget/RealTimeProduc
 import { Link, useNavigate } from 'react-router-dom';
 import './UserInfoWidget.css';
 import { AdminUserManagementWidget } from '../AdminUserManagementWdiget/AdminUserManagementWidget';
-import { AuthContext } from '../../context/AuthContext';  // Importar el contexto
+import { AuthContext } from '../../AuthContext/AuthContext';
 
 const UserInfoWidget = () => {
     const { user, logout } = useContext(AuthContext);  // Usar el contexto
