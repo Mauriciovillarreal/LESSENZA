@@ -1,12 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);  // Estado de carga
-  const navigate = useNavigate();  // Hook para navegación de React Router
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -35,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleGitHubLogin = async () => {
     try {
-      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', {
+      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', { 
         credentials: 'include'
       });
       if (!response.ok) {
@@ -90,7 +88,7 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         console.log('User logged out');
         setUser(null);
-        navigate('/login');  // Usa React Router para la redirección
+        window.location.href = '/login';
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al cerrar sesión');
