@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -88,7 +89,9 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         console.log('User logged out');
         setUser(null);
-        window.location.href = '/login';
+        const history = useHistory();
+
+        history.push('/login'); // Use useHisto
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error al cerrar sesión');
