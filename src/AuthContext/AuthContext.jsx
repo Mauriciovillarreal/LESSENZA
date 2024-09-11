@@ -9,15 +9,17 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
+        console.log('Fetching current user...');
         const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', {
-          credentials: 'include', // Esto asegura que las cookies se envíen
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
         });
-
+  
+        console.log('Response received from /current:', response);
+  
         if (response.ok) {
           const data = await response.json();
+          console.log('User data fetched:', data.user);
           setUser(data.user);
         } else {
           console.error('Failed to fetch current user');
@@ -25,11 +27,13 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error('Error fetching current user:', error);
       } finally {
-        setLoading(false); // Aquí indicamos que la carga ha finalizado
+        setLoading(false);
       }
     };
+  
     fetchCurrentUser();
   }, []);
+  
 
   const handleGitHubLogin = async () => {
     try {
