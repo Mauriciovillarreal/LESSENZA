@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -79,8 +78,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    const navigate = useNavigate(); // Inicializa useNavigate
-
     try {
         const response = await fetch('https://lessenza-api.onrender.com/api/sessions/logout', {
             method: 'GET',
@@ -90,8 +87,7 @@ export const AuthProvider = ({ children }) => {
 
         if (response.ok) {
             console.log('User logged out');
-            setUser(null);
-            navigate('/login'); // Redirigir a la página de login
+            setUser(null); // Actualizar el estado del usuario a null
         } else {
             const errorData = await response.json();
             throw new Error(errorData.error || 'Error al cerrar sesión');
@@ -100,7 +96,7 @@ export const AuthProvider = ({ children }) => {
         console.error('Error al cerrar sesión:', error.message);
         throw error;
     }
-};
+  };
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout, handleGitHubLogin }}>
