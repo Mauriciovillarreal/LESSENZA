@@ -10,11 +10,12 @@ export const AuthProvider = ({ children }) => {
     const fetchCurrentUser = async () => {
       try {
         const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', {
-          credentials: 'include',
+          credentials: 'include', // Esto asegura que las cookies se envíen
           headers: {
             'Content-Type': 'application/json',
           },
         });
+    
         if (response.ok) {
           const data = await response.json();
           setUser(data.user);
@@ -23,10 +24,9 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (error) {
         console.error('Error fetching current user:', error);
-      } finally {
-        setLoading(false);  // Establecer carga a false
       }
     };
+    
 
     fetchCurrentUser();
   }, []);
