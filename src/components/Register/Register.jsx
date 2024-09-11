@@ -23,20 +23,31 @@ const Register = () => {
         });
     };
 
+    const validateForm = () => {
+        if (!form.first_name || !form.last_name || !form.email || !form.age || !form.password) {
+            toast.error('Por favor, complete todos los campos.', {
+                position: "bottom-left",
+                autoClose: 4000,
+                style: { backgroundColor: "black", color: "white", borderRadius: "0px" }
+            });
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
+
         try {
-            const response = await axios.post('https://lessenza-api.onrender.com/api/sessions/register', form);
+            const response = await axios.post('https://lessenza-api.onrender.com/api/sessions/register', form, {
+                withCredentials: true, // Enviar cookies con la solicitud si es necesario
+            });
+
             if (response.status === 200) {
-                // Mostrar la notificación de éxito
                 toast.success('Registro exitoso, redirigiendo a página login...', {
                     position: "bottom-left",
-                    autoClose: 4000, // Tiempo que dura el toast (2 segundos)
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
+                    autoClose: 4000,
                     style: {
                         backgroundColor: "black",
                         color: "white",
@@ -44,15 +55,20 @@ const Register = () => {
                     },
                 });
 
-                // Esperar 2 segundos antes de redirigir
+                // Esperar 4 segundos antes de redirigir
                 setTimeout(() => {
                     navigate('/login');
-                }, 5000); // 2 segundos
+                }, 4000); // 4 segundos
             } else {
-                setError(response.data.message || 'Registration failed');
+                setError(response.data.message || 'Error en el registro');
             }
         } catch (err) {
-            setError('Registration failed');
+            // Manejar errores específicos del servidor, como el email ya registrado o fallos de validación.
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            } else {
+                setError('Fallo en el registro. Inténtelo de nuevo más tarde.');
+            }
         }
     };
 
@@ -62,7 +78,7 @@ const Register = () => {
                 <div className="login">
                     <form onSubmit={handleSubmit}>
                         <p>Crear cuenta</p>
-                        <label className="uperCase">Name</label>
+                        <label className="uperCase">Nombre</label>
                         <input
                             type="text"
                             name="first_name"
@@ -70,7 +86,7 @@ const Register = () => {
                             value={form.first_name}
                             onChange={handleChange}
                         />
-                        <label className="uperCase">Last name</label>
+                        <label className="uperCase">Apellido</label>
                         <input
                             type="text"
                             name="last_name"
@@ -86,7 +102,7 @@ const Register = () => {
                             value={form.email}
                             onChange={handleChange}
                         />
-                        <label className="uperCase">Age</label>
+                        <label className="uperCase">Edad</label>
                         <input
                             type="number"
                             name="age"
@@ -94,7 +110,7 @@ const Register = () => {
                             value={form.age}
                             onChange={handleChange}
                         />
-                        <label className="uperCase">Password</label>
+                        <label className="uperCase">Contraseña</label>
                         <input
                             type="password"
                             name="password"
@@ -103,10 +119,10 @@ const Register = () => {
                             onChange={handleChange}
                         />
                         <span>
-                            <p>¿Ya tenés una cuenta? <Link to="/login">Iniciar sesión</Link></p>
+                            <p>¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link></p>
                         </span>
                         <hr />
-                        <button type="submit" className="btnLogin">REGISTER</button>
+                        <button type="submit" className="btnLogin">REGISTRARSE</button>
                         {error && <p className="error">{error}</p>}
                     </form>
                 </div>
