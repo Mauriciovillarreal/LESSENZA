@@ -2,9 +2,6 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: inherit;
-    padding-bottom: 6px;
-    padding-top: 6%;
 }
 
 .realTime:hover {
