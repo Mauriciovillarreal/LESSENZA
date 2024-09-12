@@ -14,12 +14,10 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on('initial-messages', (msgs) => {
-      console.log('Received initial messages:', msgs); // Log initial messages
       setMessages(msgs);
     });
 
     socket.on('chat message', (msg) => {
-      console.log('Received chat message:', msg); // Log received message
       setMessages((prevMessages) => [...prevMessages, msg]);
     });
 
@@ -36,7 +34,6 @@ const Chat = () => {
         user: user.email,
         message,
       };
-      console.log('Sending chat message:', msg); // Log message being sent
       socket.emit('chat message', msg);
       setMessage('');
     }

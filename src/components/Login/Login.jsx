@@ -3,6 +3,7 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importar useNavigate
 import "./Login.css";
+import { Container } from 'react-bootstrap';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +17,6 @@ const LoginForm = () => {
     setError(null);
   
     try {
-      console.log('Sending login request with email:', email);
       const response = await fetch('https://lessenza-api.onrender.com/api/sessions/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -24,36 +24,29 @@ const LoginForm = () => {
         credentials: 'include',
       });
   
-      console.log('Response received:', response);
-  
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-        console.log('Response data:', data);
   
         if (data.error) {
-          console.log('Login error:', data.error);
           setError(data.error);
         } else {
           login(data);
-          console.log('Login successful, redirecting...');
           setTimeout(() => {
             navigate('/'); // Redirigir usando useNavigate
           }, 2000);
         }
       } else {
         const text = await response.text();
-        console.log('Unexpected response format:', text);
         throw new Error('Unexpected response format');
       }
     } catch (error) {
-      console.log('Error during login process:', error);
       setError(`Error al iniciar sesión: ${error.message}`);
     }
   };
   
   return (
-    <div className="login">
+    <Container className="login">
       <form onSubmit={handleSubmit}>
         <p>Iniciar sesión</p>
         <label className="uperCase">Email</label>
@@ -81,7 +74,7 @@ const LoginForm = () => {
           <img src="/img/github.png" width="50px" alt="" /> Sign up with GitHub
         </a>
       </div>
-    </div>
+    </Container>
   );
 };
 

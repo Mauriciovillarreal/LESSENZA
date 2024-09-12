@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import './ResetPassword.css';
+import { Container } from 'react-bootstrap';
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -70,7 +71,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="reset-password-container">
+    <Container className="reset-password-container">
       <p>Reiniciar Password</p>
       <form onSubmit={handleResetPassword}>
         <div>
@@ -83,7 +84,7 @@ const ResetPassword = () => {
         </div>
         <button type="submit">ENVIAR</button>
       </form>
-    </div>
+    </Container>
   );
 };
 

@@ -12,7 +12,6 @@ const AdminUserManagement = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Usuario desde AuthContext:", user); // Debug: Verificar el valor de user
 
         if (!loading) {
             if (!user || user.role !== 'admin') {
@@ -31,11 +30,7 @@ const AdminUserManagement = () => {
         try {
             const response = await axiosInstance.get('/api/users');
             
-            // Verifica que la estructura de la respuesta es correcta
-            console.log("Respuesta completa de la API:", response);
-    
             if (response.data && response.data.data) {
-                console.log("Usuarios obtenidos desde la API:", response.data.data); // Debug: Verificar los datos de usuarios
                 setUsers(response.data.data);
             } else {
                 console.error("La estructura de la respuesta no es la esperada:", response.data);
@@ -84,9 +79,6 @@ const AdminUserManagement = () => {
             }
         }
     };
-
-    // Debug: Verificar el estado de users antes de renderizar la lista
-    console.log("Estado de users en render:", users);
 
     if (loading) return <p>Cargando...</p>;
     if (error) return <p>{error}</p>;

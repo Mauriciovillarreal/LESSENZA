@@ -9,17 +9,13 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        console.log('Fetching current user...');
         const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', {
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
         });
-  
-        console.log('Response received from /current:', response);
-  
+   
         if (response.ok) {
           const data = await response.json();
-          console.log('User data fetched:', data.user);
           setUser(data.user);
         } else {
           console.error('Failed to fetch current user');
@@ -44,7 +40,6 @@ export const AuthProvider = ({ children }) => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('User data fetched:', data.user);
       setUser(data.user);
     } catch (error) {
       console.error('Error fetching current user:', error);
@@ -65,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
-        console.log('User registered:', data.user);
+
         setUser(data.user);
         window.location.href = '/';
       } else {
@@ -77,7 +72,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = (userData) => {
-    console.log('User logged in:', userData);
     setUser(userData);
   };
 
@@ -90,7 +84,6 @@ export const AuthProvider = ({ children }) => {
         });
 
         if (response.ok) {
-            console.log('User logged out');
             setUser(null); // Actualizar el estado del usuario a null
         } else {
             const errorData = await response.json();

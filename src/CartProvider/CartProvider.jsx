@@ -38,7 +38,6 @@ export const CartProvider = ({ children }) => {
         try {
             setLoading(true);
             const response = await axiosInstance.post(`/api/carts/${user.cart}/product/${productId}`);
-            console.log('Added product to cart:', response.data.products);
             setCartItems(response.data.products);
         } catch (error) {
             console.error('Error adding product to cart:', error);
@@ -61,7 +60,6 @@ export const CartProvider = ({ children }) => {
             if (index !== -1) {
                 updatedCartItems[index].quantity = quantity;
             }
-            console.log('Updated cart items:', updatedCartItems);
             setCartItems(updatedCartItems);
         } catch (error) {
             console.error('Error updating product quantity:', error);
@@ -84,7 +82,6 @@ export const CartProvider = ({ children }) => {
             if (index !== -1) {
                 updatedCartItems.splice(index, 1);
             }
-            console.log('Deleted product from cart:', updatedCartItems);
             setCartItems(updatedCartItems);
         } catch (error) {
             console.error('Error deleting product from cart:', error);
@@ -102,7 +99,6 @@ export const CartProvider = ({ children }) => {
         try {
             setLoading(true);
             await axiosInstance.delete(`/api/carts/${user.cart}`);
-            console.log('Deleted cart');
             setCartItems([]);
         } catch (error) {
             console.error('Error deleting cart:', error);
@@ -120,7 +116,6 @@ export const CartProvider = ({ children }) => {
         try {
             setLoading(true);
             const response = await axiosInstance.post(`/api/carts/${user.cart}/purchase`);
-            console.log('Purchase completed:', response.data);
             setCartItems([]); // Clear the cart items upon successful purchase
         } catch (error) {
             console.error('Error finalizing purchase:', error);

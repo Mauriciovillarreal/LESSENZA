@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import axiosInstance from '../../AxiosInstance/AxiosInstance';
 import './UploadDocuments.css';
+import { Container } from 'react-bootstrap';
 
 const UploadDocuments = () => {
   const { user } = useContext(AuthContext);
@@ -52,7 +53,7 @@ const UploadDocuments = () => {
     
       if (response.status >= 200 && response.status < 300) {
         alert('Archivos subidos exitosamente');
-        console.log('Respuesta del servidor:', response.data);
+
       } else {
         alert('Hubo un error al subir los archivos. Por favor, inténtalo nuevamente.');
         console.error('Error en la respuesta del servidor:', response.data);
@@ -68,7 +69,7 @@ const UploadDocuments = () => {
       const response = await axiosInstance.post(`/api/users/premium/${user._id}`);
       if (response.status >= 200 && response.status < 300) {
         alert('Cuenta actualizada a premium correctamente.');
-        console.log('Respuesta del servidor:', response.data);
+
       } else {
         alert('No se pudo actualizar la cuenta a premium.');
         console.error('Error en la respuesta del servidor:', response.data);
@@ -84,7 +85,7 @@ const UploadDocuments = () => {
   };
 
   return (
-    <div className="upload-documents-container">
+    <Container className="upload-documents-container">
       <h2>Subir Documentos para Actualizar a Premium</h2>
       <p>Para actualizar tu cuenta a premium, es necesario subir los siguientes 3 documentos:</p>
       <ul className="required-documents-list">
@@ -136,7 +137,7 @@ const UploadDocuments = () => {
       <button onClick={handleUpgradeToPremium} className="upgrade-button">
         Actualizar a Premium
       </button>
-    </div>
+    </Container>
   );
 };
 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Register.css';
+import { Container } from 'react-bootstrap';
 
 const Register = () => {
     const [form, setForm] = useState({
@@ -73,7 +74,7 @@ const Register = () => {
     };
 
     return (
-        <main className="mainLogin">
+        <Container className="mainLogin">
             <div className="bg">
                 <div className="login">
                     <form onSubmit={handleSubmit}>
@@ -128,7 +129,7 @@ const Register = () => {
                 </div>
             </div>
             <ToastContainer />
-        </main>
+        </Container>
     );
 };
 
