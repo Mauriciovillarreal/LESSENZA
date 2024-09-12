@@ -1,7 +1,6 @@
 // GenerateNewResetLink.jsx
 import React, { useState } from 'react';
 import './GenerateNewResetLink.css';
-import { Container } from 'react-bootstrap';
 
 const GenerateNewResetLink = () => {
   const [email, setEmail] = useState('');
@@ -35,7 +34,7 @@ const GenerateNewResetLink = () => {
   };
 
   return (
-    <Container className="generate-new-reset-link">
+    <div className="generate-new-reset-link">
       <form onSubmit={handleSubmit}>
         <p>Generate New Reset Link</p>
         <label className="uperCase">Email</label>
@@ -49,7 +48,7 @@ const GenerateNewResetLink = () => {
         {message && <p className="message">{message}</p>}
         {error && <p className="error">{error}</p>}
       </form>
-    </Container>
+    </div>
   );
 };
 

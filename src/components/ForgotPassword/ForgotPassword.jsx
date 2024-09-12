@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import './ForgotPassword.css';
 import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -36,7 +35,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <Container className="forgot-password">
+        <div className="forgot-password">
             <form onSubmit={handleSubmit}>
                 <p>Has olvidado tu contraseña</p>
                 <label className="uperCase">Email</label>
@@ -51,7 +50,7 @@ const ForgotPassword = () => {
                 {message && <p className="message">{message}</p>}
                 {error && <p className="error">{error}</p>}
             </form>
-        </Container>
+        </div>
     );
 };
 

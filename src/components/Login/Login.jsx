@@ -3,7 +3,6 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importar useNavigate
 import "./Login.css";
-import { Container } from 'react-bootstrap';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -46,7 +45,7 @@ const LoginForm = () => {
   };
   
   return (
-    <Container className="login">
+    <div className="login">
       <form onSubmit={handleSubmit}>
         <p>Iniciar sesión</p>
         <label className="uperCase">Email</label>
@@ -74,7 +73,7 @@ const LoginForm = () => {
           <img src="/img/github.png" width="50px" alt="" /> Sign up with GitHub
         </a>
       </div>
-    </Container>
+    </div>
   );
 };
 

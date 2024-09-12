@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import axiosInstance from '../../AxiosInstance/AxiosInstance';
 import './UploadDocuments.css';
-import { Container } from 'react-bootstrap';
 
 const UploadDocuments = () => {
   const { user } = useContext(AuthContext);
@@ -85,7 +84,7 @@ const UploadDocuments = () => {
   };
 
   return (
-    <Container className="upload-documents-container">
+    <div className="upload-documents-container">
       <h2>Subir Documentos para Actualizar a Premium</h2>
       <p>Para actualizar tu cuenta a premium, es necesario subir los siguientes 3 documentos:</p>
       <ul className="required-documents-list">
@@ -137,7 +136,7 @@ const UploadDocuments = () => {
       <button onClick={handleUpgradeToPremium} className="upgrade-button">
         Actualizar a Premium
       </button>
-    </Container>
+    </div>
   );
 };
 
