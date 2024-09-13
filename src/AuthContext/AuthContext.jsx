@@ -77,23 +77,27 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-        const response = await fetch('https://lessenza-api.onrender.com/api/sessions/logout', {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-        });
-
-        if (response.ok) {
-            setUser(null); // Actualizar el estado del usuario a null
-        } else {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Error al cerrar sesión');
-        }
+      console.log('Logout: Iniciando solicitud para cerrar sesión'); // Log al iniciar el logout
+      const response = await fetch('https://lessenza-api.onrender.com/api/sessions/logout', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+      });
+  
+      if (response.ok) {
+        console.log('Logout: Sesión cerrada con éxito'); // Log cuando la sesión se cierra exitosamente
+        setUser(null); // Actualizar el estado del usuario a null
+      } else {
+        const errorData = await response.json();
+        console.error('Logout: Error al cerrar sesión:', errorData.error || 'Error desconocido');
+        throw new Error(errorData.error || 'Error al cerrar sesión');
+      }
     } catch (error) {
-        console.error('Error al cerrar sesión:', error.message);
-        throw error;
+      console.error('Logout: Excepción capturada al cerrar sesión:', error.message); // Log de errores o excepciones
+      throw error; // Relanza el error si es necesario manejarlo en otro lugar
     }
   };
+  
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout, handleGitHubLogin }}>
