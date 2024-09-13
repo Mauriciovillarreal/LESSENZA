@@ -97,7 +97,6 @@ export const AuthProvider = ({ children }) => {
       throw error; // Relanza el error si es necesario manejarlo en otro lugar
     }
   };
-  
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout, handleGitHubLogin }}>
