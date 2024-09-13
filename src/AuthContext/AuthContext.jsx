@@ -75,9 +75,9 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
   };
 
-  const logout = async () => {
+  logout = async () => {
     try {
-      console.log('Logout: Iniciando solicitud para cerrar sesión'); // Log al iniciar el logout
+      console.log('Logout: Iniciando solicitud para cerrar sesión');
       const response = await fetch('https://lessenza-api.onrender.com/api/sessions/logout', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
       });
   
       if (response.ok) {
-        console.log('Logout: Sesión cerrada con éxito'); // Log cuando la sesión se cierra exitosamente
+        console.log('Logout: Sesión cerrada con éxito');
         setUser(null); // Actualizar el estado del usuario a null
       } else {
         const errorData = await response.json();
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error(errorData.error || 'Error al cerrar sesión');
       }
     } catch (error) {
-      console.error('Logout: Excepción capturada al cerrar sesión:', error.message); // Log de errores o excepciones
+      console.error('Logout: Excepción capturada al cerrar sesión:', error.message);
       throw error; // Relanza el error si es necesario manejarlo en otro lugar
     }
   };
