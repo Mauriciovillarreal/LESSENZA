@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
   };
 
-  logout = async () => {
+  const logout = async () => {
     try {
       console.log('Logout: Iniciando solicitud para cerrar sesión');
       const response = await fetch('https://lessenza-api.onrender.com/api/sessions/logout', {
