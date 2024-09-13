@@ -13,10 +13,11 @@ export const AuthProvider = ({ children }) => {
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
         });
-   
+  
         if (response.ok) {
           const data = await response.json();
           setUser(data.user);
+          localStorage.setItem('user', JSON.stringify(data.user)); // Guardar usuario en localStorage
         } else {
           console.error('Failed to fetch current user');
         }
@@ -27,8 +28,14 @@ export const AuthProvider = ({ children }) => {
       }
     };
   
-    fetchCurrentUser();
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser)); // Restaurar usuario de localStorage si está disponible
+    } else {
+      fetchCurrentUser(); // Si no hay usuario en localStorage, obtenerlo del backend
+    }
   }, []);
+  
   
 
   const handleGitHubLogin = async () => {
@@ -77,28 +84,23 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      console.log('Logout: Iniciando solicitud para cerrar sesión');
       const response = await fetch('https://lessenza-api.onrender.com/api/sessions/logout', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
   
-      console.log('Logout: Response', response);
-  
       if (response.ok) {
-        console.log('Logout: Sesión cerrada con éxito');
-        setUser(null); // Actualizar el estado del usuario a null
+        setUser(null);
+        localStorage.removeItem('user'); // Eliminar usuario de localStorage al cerrar sesión
       } else {
-        const errorData = await response.json();
-        console.error('Logout: Error al cerrar sesión:', errorData.error || 'Error desconocido');
-        throw new Error(errorData.error || 'Error al cerrar sesión');
+        console.error('Error logging out');
       }
     } catch (error) {
-      console.error('Logout: Excepción capturada al cerrar sesión:', error.message);
-      throw error; // Relanza el error si es necesario manejarlo en otro lugar
+      console.error('Error logging out:', error);
     }
   };
+  
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout, handleGitHubLogin }}>
