@@ -29,11 +29,13 @@ export const AuthProvider = ({ children }) => {
     };
   
     const savedUser = localStorage.getItem('user');
+
     if (savedUser) {
       setUser(JSON.parse(savedUser)); // Restaurar usuario de localStorage si está disponible
     } else {
       fetchCurrentUser(); // Si no hay usuario en localStorage, obtenerlo del backend
     }
+    
   }, []);
   
   
