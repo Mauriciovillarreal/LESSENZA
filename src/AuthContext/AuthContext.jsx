@@ -84,6 +84,8 @@ export const AuthProvider = ({ children }) => {
         credentials: 'include',
       });
   
+      console.log('Logout: Response', response);
+  
       if (response.ok) {
         console.log('Logout: Sesión cerrada con éxito');
         setUser(null); // Actualizar el estado del usuario a null
