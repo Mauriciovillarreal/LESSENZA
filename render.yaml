@@ -1,12 +1,15 @@
 services:
   - type: web
-    name: lessenza
-    env: static
-    staticPublishPath: /dist # Ajusta según la carpeta donde están tus archivos estáticos
+    name: lessenza-app             # Nombre de tu servicio en Render
+    env: static                    # Define que se trata de un sitio estático
+    staticPublishPath: /dist       # Define la carpeta de salida de los archivos estáticos
     routes:
       - type: rewrite
         source: /login
-        destination: /index.html
+        destination: /index.html   # Redirige la ruta /login al index.html
       - type: rewrite
-        source: /*   # Redirige todas las rutas no estáticas a index.html
-        destination: /index.html
+        source: /forgot-password
+        destination: /index.html   # Redirige la ruta /forgot-password al index.html
+      - type: rewrite
+        source: /*                 
+        destination: /index.html   # Redirige todas las demás rutas a index.html
