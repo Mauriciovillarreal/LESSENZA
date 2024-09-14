@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: lessenza-app
+    env: static
+    staticPublishPath: /dist
+    routes:
+      - type: rewrite
+        source: /login
+        destination: /index.html
+      - type: rewrite
+        source: /*
+        destination: /index.html
