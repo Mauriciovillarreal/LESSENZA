@@ -6,7 +6,7 @@ import { CartProvider } from './CartProvider/CartProvider';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import Login from './components/Login/Login';
 import { NavBar } from './components/NavBar/NavBar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import { ItemDetailContainer } from './components/ItemDetailContainer/ItemDetailContainer';
 import Register from './components/Register/Register';
 import RealTimeProducts from './components/RealTimeProducts/RealTimeProducts';
@@ -26,7 +26,7 @@ const App = () => {
         <CartProvider>
           <BrowserRouter>
             <NavBar />
-            <Routes>
+            <HashRouter>
               <Route path='/' element={<ItemListContainer />} />
               <Route path='/detail/:pid' element={<ItemDetailContainer />} />
               <Route path='/checkout' element={<Checkout />} />
@@ -38,7 +38,7 @@ const App = () => {
               <Route path='/realtimeproducts' element={<RealTimeProducts />} />
               <Route path='/profil' element={<UploadDocuments />} />
               <Route path="/admin/users/:uid" element={<AdminUserManagement />} />
-            </Routes>
+            </HashRouter>
             <Footer />
             <ToastContainer />
           </BrowserRouter>
