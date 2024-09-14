@@ -24,9 +24,9 @@ const App = () => {
     <>
       <AuthProvider>
         <CartProvider>
-          <BrowserRouter>
+          <HashRouter>
             <NavBar />
-            <HashRouter>
+            <Routes>
               <Route path='/' element={<ItemListContainer />} />
               <Route path='/detail/:pid' element={<ItemDetailContainer />} />
               <Route path='/checkout' element={<Checkout />} />
@@ -38,10 +38,10 @@ const App = () => {
               <Route path='/realtimeproducts' element={<RealTimeProducts />} />
               <Route path='/profil' element={<UploadDocuments />} />
               <Route path="/admin/users/:uid" element={<AdminUserManagement />} />
-            </HashRouter>
+            </Routes>
             <Footer />
             <ToastContainer />
-          </BrowserRouter>
+          </HashRouter>
         </CartProvider>
       </AuthProvider>
     </>
