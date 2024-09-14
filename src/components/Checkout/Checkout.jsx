@@ -21,7 +21,12 @@ export const Checkout = () => {
   const total = cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0);
 
   return (
-    <Container>
+    <Container className='containerCO'>
+      <div className='containercontrol'>
+      <img className='imgcheckout' src="../img/cart.png" alt="" />
+
+        <img className='imgcheckoutcontrol' src="../img/checkout.png" alt="" />
+      </div>
       <div className='Checkout'>
         <div className='productList'>
           {cartItems.length === 0 ? (
@@ -35,13 +40,13 @@ export const Checkout = () => {
                   <p>{item.quantity}</p>
                   <p>${item.product.price.toFixed(2)}</p>
                 </div>
-             
+
               </div>
             ))
           )}
         </div>
         <div className='cartSummary'>
-       
+
           <div className='summaryItem'>
             <span>Subtotal:</span>
             <span>${total.toFixed(2)}</span>

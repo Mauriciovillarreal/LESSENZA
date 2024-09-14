@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import axiosInstance from '../../AxiosInstance/AxiosInstance';
-import { Container } from 'react-bootstrap';
+import { Container, Table } from 'react-bootstrap';
+import "./AdminUserManagement.css"
 
 const AdminUserManagement = () => {
     const { user, loading } = useContext(AuthContext); // Obtener el usuario autenticado y el estado de carga
@@ -12,6 +13,7 @@ const AdminUserManagement = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("Usuario desde AuthContext:", user); // Debug: Verificar el valor de user
 
         if (!loading) {
             if (!user || user.role !== 'admin') {
@@ -19,30 +21,31 @@ const AdminUserManagement = () => {
                 alert('No tienes permisos para acceder a esta página.');
                 navigate('/');
             } else {
-                // Si el usuario es admin, cargar la lista de usuarios
+                console.log("El usuario es admin, cargando usuarios...");
                 fetchUsers();
             }
         }
     }, [loading, user]);
 
+
     // Función para obtener todos los usuarios
     const fetchUsers = async () => {
         try {
             const response = await axiosInstance.get('/api/users');
-            
-            if (response.data && response.data.data) {
-                setUsers(response.data.data);
-            } else {
-                console.error("La estructura de la respuesta no es la esperada:", response.data);
-                setUsers([]); // Si no hay usuarios, definir como array vacío
-            }
+
+            console.log("Respuesta completa de la API:", response);
+
+            // Ajusta según la estructura de la respuesta
+            const usuarios = response.data?.data || response.data || [];
+            console.log("Usuarios obtenidos desde la API:", usuarios);
+            setUsers(usuarios);
+
         } catch (err) {
             console.error("Error al obtener usuarios:", err);
             setError('Error al cargar los usuarios.');
-            setUsers([]); // Establecer como array vacío si ocurre un error
+            setUsers([]);
         }
     };
-    
 
     // Función para seleccionar un usuario para editar o cambiar el rol
     const handleSelectUser = (user) => {
@@ -50,7 +53,7 @@ const AdminUserManagement = () => {
     };
 
     // Función para cambiar el rol del usuario seleccionado
-    const handleRoleChange = async () => {
+    const handleRoleChange = async (selectedUser) => {
         if (!selectedUser) return;
 
         try {
@@ -64,7 +67,7 @@ const AdminUserManagement = () => {
     };
 
     // Función para eliminar al usuario seleccionado
-    const handleDeleteUser = async () => {
+    const handleDeleteUser = async (selectedUser) => {
         if (!selectedUser) return;
 
         const confirmDelete = window.confirm(`¿Estás seguro de eliminar al usuario ${selectedUser.first_name}?`);
@@ -72,7 +75,6 @@ const AdminUserManagement = () => {
             try {
                 await axiosInstance.delete(`/api/users/${selectedUser._id}`);
                 alert('Usuario eliminado con éxito.');
-                setSelectedUser(null); // Limpiar la selección
                 fetchUsers(); // Refrescar la lista de usuarios después de la eliminación
             } catch (err) {
                 alert('Error al eliminar el usuario.');
@@ -80,46 +82,50 @@ const AdminUserManagement = () => {
         }
     };
 
+    // Debug: Verificar el estado de users antes de renderizar la lista
+    console.log("Estado de users en render:", users);
+
     if (loading) return <p>Cargando...</p>;
     if (error) return <p>{error}</p>;
 
     return (
-        <Container>
+        <Container className='ContainerUser'>
             <h1>Gestión de Usuarios</h1>
-            
-            {/* Lista de Usuarios */}
-            <div>
-                <h2>Lista de Usuarios</h2>
-                <ul>
+
+            {/* Tabla de Usuarios */}
+            <Table striped bordered hover responsive>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
                     {users.length > 0 ? (
                         users.map((user) => (
-                            <li key={user._id}>
-                                {user.first_name} {user.email}
-                                <button onClick={() => handleSelectUser(user)}>Editar</button>
-                            </li>
+                            <tr key={user._id}>
+                                <td>{user.first_name}</td>
+                                <td>{user.email}</td>
+                                <td>{user.role}</td>
+                                <td>
+                                    <button onClick={() => handleRoleChange(user)}>
+                                        {user.role === 'user' ? 'Cambiar a Premium' : 'Cambiar a Usuario'}
+                                    </button>
+                                    <button onClick={() => handleDeleteUser(user)} >
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
                         ))
                     ) : (
-                        <p>No hay usuarios disponibles.</p>
+                        <tr>
+                            <td colSpan="4">No hay usuarios disponibles.</td>
+                        </tr>
                     )}
-                </ul>
-            </div>
-
-            {/* Detalles del usuario seleccionado */}
-            {selectedUser && (
-                <div>
-                    <h2>Detalles del Usuario</h2>
-                    <p>Nombre: {selectedUser.first_name}</p>
-                    <p>Email: {selectedUser.email}</p>
-                    <p>Rol actual: {selectedUser.role}</p>
-
-                    <button onClick={handleRoleChange}>
-                        {selectedUser.role === 'user' ? 'Cambiar a Premium' : 'Cambiar a Usuario'}
-                    </button>
-                    <button onClick={handleDeleteUser} style={{ marginLeft: '10px', color: 'red' }}>
-                        Eliminar Usuario
-                    </button>
-                </div>
-            )}
+                </tbody>
+            </Table>
         </Container>
     );
 };

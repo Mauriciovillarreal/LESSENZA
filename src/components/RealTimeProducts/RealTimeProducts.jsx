@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import io from 'socket.io-client';
 import './RealTimeProducts.css'; // Importa los estilos
 import { AuthContext } from '../../AuthContext/AuthContext';
+import { Container } from 'react-bootstrap';
 
 const socket = io('https://lessenza-api.onrender.com');
 
@@ -75,7 +76,7 @@ const RealTimeProducts = () => {
     };
 
     return (
-        <main>
+        <Container>
             <h1 className="text-start h6 container">Real-time Products</h1>
             <div className="realTimeProducts container">
                 <div>
@@ -200,7 +201,7 @@ const RealTimeProducts = () => {
                     </div>
                 )}
             </div>
-        </main>
+        </Container>
     );
 };
 

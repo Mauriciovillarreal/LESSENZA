@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./FilterList.css";
+import "./filterList.css";
 
 
 const FilterList = ({ products, setFilteredProducts }) => {

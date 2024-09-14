@@ -8,36 +8,30 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
-      try {
-        const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', {
-          credentials: 'include', // Asegúrate de incluir las cookies en las peticiones
-          headers: { 'Content-Type': 'application/json' },
-        });
-    
-        if (response.ok) {
-          const data = await response.json();
-          setUser(data.user);
-          localStorage.setItem('user', JSON.stringify(data.user));
-        } else {
-          console.error('Failed to fetch current user');
-        }
-      } catch (error) {
-        console.error('Error fetching current user:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    const savedUser = localStorage.getItem('user');
+        try {
+            const response = await fetch('https://lessenza-api.onrender.com/api/sessions/current', {
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+            });
 
-    if (savedUser) {
-      setUser(JSON.parse(savedUser)); // Restaurar usuario de localStorage si está disponible
-    } else {
-      fetchCurrentUser(); // Si no hay usuario en localStorage, obtenerlo del backend
-    }
-    
-  }, []);
-  
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data.user);
+                localStorage.setItem('user', JSON.stringify(data.user));
+            } else {
+                console.error('Failed to fetch current user');
+            }
+        } catch (error) {
+            console.error('Error fetching current user:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchCurrentUser(); // Siempre hacer una solicitud al servidor
+
+}, []);
+
   
 
   const handleGitHubLogin = async () => {

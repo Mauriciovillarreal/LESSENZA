@@ -1,3 +1,24 @@
+.containerCO {
+  margin-top: 100px;
+}
+
+.imgcheckout {
+  width: 40px;
+
+}
+.containercontrol {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  flex-direction: column; /* Asegura que los elementos se coloquen en columna */
+}
+
+.imgcheckoutcontrol {
+  width: 300px;
+  text-align: center;
+  margin-bottom: 20px; /* Añade espacio entre la imagen y otros elementos */
+}
+
 .Checkout {
   display: flex;
   flex-wrap: wrap;

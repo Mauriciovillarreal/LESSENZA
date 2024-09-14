@@ -7,7 +7,7 @@ export const ItemList = ({ products, addToCart }) => {
         <>
             {products.map(product => (
                 <Col key={product._id}>
-                    <Item product={product} addToCart={addToCart} />//hola
+                    <Item product={product} addToCart={addToCart} />
                 </Col>
             ))}
         </>
